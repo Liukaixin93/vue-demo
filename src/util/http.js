@@ -3,30 +3,27 @@ import { Toast } from 'vant';
 // import store from ''
 
 if (process.env.NODE_ENV == 'development') {
-  axios.defaults.baseURL = 'https://service.youjianio.com/';
-  // axios.defaults.baseURL = 'http://rrt-ss.wdcloud.cc/';
+  axios.defaults.baseURL = 'https://serviceonline.youjianio.com/';
 } else if (process.env.NODE_ENV == 'debug') {
-  axios.defaults.baseURL = 'https://service.youjianio.com/';
-  // axios.defaults.baseURL = 'http://rrt-ss.wdcloud.cc/';
+  axios.defaults.baseURL = 'https://serviceonline.youjianio.com/';
 } else if (process.env.NODE_ENV == 'production') {
-  axios.defaults.baseURL = 'https://service.youjianio.com/';
-  // axios.defaults.baseURL = 'http://rrt-ss.wdcloud.cc/';
+  axios.defaults.baseURL = 'https://serviceonline.youjianio.com/';
 }
 
 // 请求超时时间
 axios.defaults.timeout = 10000;
 
 // post请求头
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 // 请求拦截器
 axios.interceptors.request.use(
   config => {
-    console.log("请求拦截器");
-  //   // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
-  //   // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
-  //   const token = store.state.token;
-  //   token && (config.headers.Authorization = token);
+    // console.log("请求拦截器");
+    //   // 每次发送请求之前判断是否存在token，如果存在，则统一在http请求的header都加上token，不用每次请求都手动添加了
+    //   // 即使本地存在token，也有可能token是过期的，所以在响应拦截器中要对返回状态进行判断
+    //   const token = store.state.token;
+    //   token && (config.headers.Authorization = token);
     return config;
   },
   error => {
@@ -37,7 +34,7 @@ axios.interceptors.request.use(
 // 响应拦截器
 axios.interceptors.response.use(
   response => {
-    console.log("响应拦截器");
+    // console.log("响应拦截器");
     if (response.status === 200) {
       return Promise.resolve(response);
     } else {
@@ -124,10 +121,14 @@ export function get(url, params) {
  * @param {String} url [请求的url地址] 
  * @param {Object} params [请求时携带的参数] 
  */
-export function post(url, params) {
+export function post(url, params,headers) {
+  let data = ''
+  for(let i in params) {
+    data += i + '=' + params[i] + '&'
+  }
+  // console.log(data);
   return new Promise((resolve, reject) => {
-    console.log("url::::" + url);
-    axios.post(url, params).then(res => {
+    axios.post(url, data, headers).then(res => {
       resolve(res.data);
     }).catch(err => {
       reject(err.data)

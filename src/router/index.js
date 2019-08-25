@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import loginComponent from '@/components/page/login/login'
-import homeComponent from '@/components/page/home/home'
+import orderListComponent from '@/components/page/orderList/orderList'
 
 Vue.use(Router)
 
@@ -16,15 +16,15 @@ const routes = [
     redirect: loginComponent
   },
   {
-    path: '/login',
-    name: 'login',
-    component: loginComponent
+    path: '/orderList',
+    name: 'orderList',
+    component: orderListComponent
   },
-  {
-    path: '/home',
-    name: 'home',
-    component: homeComponent
-  }
+  // {
+  //   path: '/home',
+  //   name: 'home',
+  //   component: homeComponent
+  // }
 ]
 
 const router = new Router({
