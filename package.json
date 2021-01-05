@@ -13,7 +13,7 @@
     "buildProd": "cross-env cross-env NODE_ENV=production node build/dev-server.js"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "element-ui": "^2.8.2",
     "js-md5": "^0.7.3",
     "vant": "^1.6.22",
